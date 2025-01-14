@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executar e Fechar Automáticamente</title>
+</head>
+<body>
+    <h1>Inicializando código para finalizar a minuta com a OPL e logo após fecha a Página</h1>
+
+    <script>
+        // O código JavaScript será executado assim que a página for carregada
+        window.onload = function() {
+            // Envia a requisição POST para o Power Automate
+            fetch('https://prod-176.westeurope.logic.azure.com:443/workflows/9058682eaf9644bcaf967a7927b180d2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VfbupR1To56WwWhH3Kpd-qLvgMrHb9gxmye9-Em4yjw', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "key1": "value1",
+                    "key2": "value2"
+                }),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))  // Exibe a resposta no console
+            .catch((error) => console.error('Error:', error));  // Caso haja um erro, ele será mostrado no console
+
+            // Após 1 segundo (1000ms), fecha a página
+            setTimeout(function() {
+                window.close();  // Fecha a janela do navegador
+            }, 2000);
+        };
+    </script>
+</body>
+</html>
